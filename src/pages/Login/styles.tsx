@@ -12,19 +12,26 @@ export const Background = styled.div`
   background-size: cover;
 `;
 
-export const GlassHeader = styled.div`
+export const LoginButton = styled.button`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  padding: 0 2vw;
-  gap: 3vw;
-  width: 100%;
-  height: 8%;
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4.5px);
-  -webkit-backdrop-filter: blur(6.3px);
+  gap: 0.5vw;
+  padding: 1vw;
+  width: 8vw;
+  display: flex;
+  color: ${({ theme }) => theme.colors.typography.lightGray};
+  background-color: transparent;
+  border-radius: 30px;
+  font-size: clamp(0.1rem, 0.1rem + 1.8vh, 1.3rem);
+  cursor: pointer;
+  border: 1px solid ${({ theme }) => theme.colors.typography.lightGray};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.typography.lightGray};
+    color: ${({ theme }) => theme.colors.typography.body};
+    transition: background-color 0.5s ease-in-out;
+  }
 `;
 
 export const Content = styled.div`
@@ -43,7 +50,7 @@ export const LeftSide = styled.div`
   height: 100%;
   width: 100%;
   gap: 4vh;
-  background-color: #1f1f24;
+  background: rgba(33, 36, 39, 0.7);
 `;
 
 export const ColumnText = styled.div`
@@ -56,4 +63,19 @@ export const ColumnText = styled.div`
 export const RightSide = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+export const LoginCard = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  padding-top: 2rem;
 `;
