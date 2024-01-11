@@ -1,32 +1,34 @@
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { IconButton, TextField } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import ClearIcon from "@mui/icons-material/Clear";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useEffect, useState } from "react";
 import { DefaultInputProps } from "./types";
-import { InputTheme, LabelTheme } from "./StyledGlobal/styles";
-
+import { useEffect, useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
+import { InputTheme } from "./StyledGlobal/styles";
 export function DefaultInput({
   label,
-  placeholder,
   width,
   error,
   removeError,
-  // showMessageError,
   isMultiline,
   shrink,
   rows,
   small,
-  line,
   adornment,
   type,
   toggleShowPassword,
   showPassword,
-  disabled,
+  value,
   ...rest
 }: DefaultInputProps) {
   const useWidth = width;
+
+  // const inputProps = {
+  //   ...rest,
+  // };
+
+  const inputPropsArray = Object.entries(rest);
+
   const isPassword = showPassword ? "text" : "password";
   const [showError, setShowError] = useState(error ? true : false);
 
@@ -39,10 +41,6 @@ export function DefaultInput({
       removeError(error);
     }
     setShowError(false);
-  };
-
-  const inputProps = {
-    ...rest,
   };
 
   const InputIcon = () => {
@@ -78,24 +76,26 @@ export function DefaultInput({
 
   return (
     <>
-      <InputLabel sx={LabelTheme()}>{label}</InputLabel>
       <TextField
         type={type === "password" ? isPassword : type}
-        variant="outlined"
-        placeholder={placeholder}
+        label={label}
+        variant="filled"
         rows={rows}
-        sx={InputTheme()}
-        style={{ width: useWidth }}
-        error={showError}
+        value={value}
+        sx={{
+          ...InputTheme(),
+          width: useWidth,
+          height: "100%",
+        }}
         onChange={handleInputChange}
-        inputProps={inputProps}
+        error={error ? true : false}
+        inputProps={Object.fromEntries(inputPropsArray)}
         InputProps={{
           endAdornment: renderEndAdornment(),
         }}
         multiline={isMultiline}
         InputLabelProps={{ shrink }}
         size={small ? "small" : "medium"}
-        disabled={disabled ? disabled : false}
       />
     </>
   );

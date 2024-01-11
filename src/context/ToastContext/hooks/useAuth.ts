@@ -1,25 +1,19 @@
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import Api from "../../../services/Api";
 import {
-  setProfileLocalStorage,
   setRefreshTokenLocalStorage,
   setTokenLocalStorage,
-  setEmailLocalStorage,
+  setUserIdLocalStorage,
   setUserNameLocalStorage,
-} from "../AuthProvider/utils";
-import { CodeError } from "../../common/enums";
-import { IAuthError } from "../AuthProvider/types";
-import Api from "../../../services/Api";
+} from "../../AuthProvider/utils";
 
-export function useAuth(
-  setMessageError: (value?: IAuthError) => void,
-  setErrorEmail: (value: boolean) => void,
-  setErrorPassword: (value: boolean) => void
-) {
+export function useAuth(setErrorLogin: (value: string | undefined) => void) {
   const navigate = useNavigate();
-  async function handleLogin(email: string, password: string) {
+
+  async function handleLogin(identifier: string, password: string) {
     const body = {
-      email: email,
+      identifier: identifier,
       password: password,
     };
 
@@ -27,23 +21,15 @@ export function useAuth(
       .then((response) => {
         setTokenLocalStorage(response.data.access_token);
         setRefreshTokenLocalStorage(response.data.refresh_token);
-        setEmailLocalStorage(response.data.email);
-        setProfileLocalStorage(response.data.profile_name);
-        setUserNameLocalStorage(response.data.name);
-        localStorage.setItem("is_logged_in", "true");
-        localStorage.removeItem("email");
-        navigate("/home");
-
-        setErrorEmail(false);
-        setErrorPassword(false);
+        setUserNameLocalStorage(response.data.user.user_name);
+        setUserIdLocalStorage(response.data.user.user_id);
+        setErrorLogin(undefined);
+        navigate("/login");
       })
-
       .catch(async (error) => {
-        if (error.response.data.code == CodeError.EXTERNAL_LOGIN_ERROR) {
-          setErrorEmail(true);
-          setErrorPassword(true);
-        }
-        setMessageError(error.response.data);
+        toast.dismiss();
+        setErrorLogin(error.response.data.message);
+        toast.error(error.response.data.message);
       });
   }
 

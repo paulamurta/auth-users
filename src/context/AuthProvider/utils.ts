@@ -2,10 +2,6 @@ export function setTokenLocalStorage(token: string) {
   localStorage.setItem("acc_token", token);
 }
 
-export function setTokenFirstLocalStorage(token: string) {
-  localStorage.setItem("first_acc", token);
-}
-
 export function setRefreshTokenLocalStorage(refreshToken: string) {
   localStorage.setItem("refresh_token", refreshToken);
 }
@@ -18,12 +14,8 @@ export function setUserNameLocalStorage(name: string) {
   localStorage.setItem("userName", name);
 }
 
-export function setEmailLocalStorage(email: string) {
-  localStorage.setItem("email", email);
-}
-
-export function setTransactionsLocalStorage(transactions: []) {
-  localStorage.setItem("transactions", JSON.stringify(transactions));
+export function setUserIdLocalStorage(id: string) {
+  localStorage.setItem("userId", id);
 }
 
 export function getTokenLocalStorage() {
@@ -38,18 +30,6 @@ export function getTokenLocalStorage() {
   return token ?? null;
 }
 
-export function getTransactionsLocalStorage() {
-  const json = localStorage.getItem("transactions");
-
-  if (!json) {
-    return null;
-  }
-
-  const transactions = JSON.parse(json);
-
-  return transactions ?? null;
-}
-
 export function getUserNameLocalStorage() {
   const json = localStorage.getItem("userName");
 
@@ -59,17 +39,5 @@ export function getUserNameLocalStorage() {
 
   const transactions = json;
 
-  return transactions ?? null;
-}
-
-export function getProfileLocalStorage() {
-  const json = localStorage.getItem("profile");
-
-  if (!json) {
-    return null;
-  }
-
-  const transactions = json;
-
-  return transactions ?? null;
+  return transactions;
 }

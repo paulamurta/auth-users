@@ -4,5 +4,5 @@ export type FormGroupProps = {
   errorPasswordNumber?: string;
   errorPasswordCaracter?: string;
   extraErrorMessage?: string[];
-  isInheritedWidth?: boolean;
+  width?: string;
 };

@@ -13,7 +13,5 @@ export type DefaultInputProps = {
   rows?: number;
   type?: string;
   showPassword?: boolean;
-  disabled?: boolean;
   toggleShowPassword?: () => void;
-  allowLeadingZero?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;

@@ -7,10 +7,10 @@ export function FormGroup({
   errorPasswordNumber,
   errorPasswordCaracter,
   extraErrorMessage,
-  isInheritedWidth,
+  width,
 }: FormGroupProps) {
   return (
-    <Container isInheritedWidth={isInheritedWidth}>
+    <Container width={width}>
       {error && <small>{error}</small>}
       {children}
       {errorPasswordNumber && <small>{errorPasswordNumber}</small>}

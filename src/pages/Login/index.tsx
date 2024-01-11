@@ -22,6 +22,7 @@ const Login = () => {
   const [useToast, setUseToast] = useState(false);
   const [password, setPassoword] = useState<string>("");
   const [email, setEmail] = useState("");
+  const { getErrorMessageByFieldName } = useErrors();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -36,12 +37,8 @@ const Login = () => {
           {isLoginOn ? (
             <Form onSubmit={handleSubmit}>
               <FormGroup
-                error={
-                  !useToast && errorEmail
-                    ? getErrorMessageByFieldName("errorEmail")
-                    : undefined
-                }
-                extraErrorMessage={[""]}
+                width={"100%"}
+                error={getErrorMessageByFieldName("user-email")}
               >
                 <DefaultInput
                   error={errorEmail ? "errorEmail" : ""}
